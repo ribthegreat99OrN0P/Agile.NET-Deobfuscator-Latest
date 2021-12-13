@@ -1,0 +1,33 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net6.0</TargetFramework>
+    <RootNamespace>Agile.NET_Deobfuscator_Updated</RootNamespace>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AsmResolver.DotNet" Version="4.7.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Reference Include="Echo.Concrete">
+      <HintPath>..\..\..\..\Echo\EchoEmuTest\EchoEmuTest\bin\Debug\net5.0\Echo.Concrete.dll</HintPath>
+    </Reference>
+    <Reference Include="Echo.ControlFlow">
+      <HintPath>..\..\..\..\Echo\EchoEmuTest\EchoEmuTest\bin\Debug\net5.0\Echo.ControlFlow.dll</HintPath>
+    </Reference>
+    <Reference Include="Echo.Core">
+      <HintPath>..\..\..\..\Echo\EchoEmuTest\EchoEmuTest\bin\Debug\net5.0\Echo.Core.dll</HintPath>
+    </Reference>
+    <Reference Include="Echo.DataFlow">
+      <HintPath>..\..\..\..\Echo\EchoEmuTest\EchoEmuTest\bin\Debug\net5.0\Echo.DataFlow.dll</HintPath>
+    </Reference>
+    <Reference Include="Echo.Platforms.AsmResolver">
+      <HintPath>..\..\..\..\Echo\EchoEmuTest\EchoEmuTest\bin\Debug\net5.0\Echo.Platforms.AsmResolver.dll</HintPath>
+    </Reference>
+  </ItemGroup>
+
+</Project>
