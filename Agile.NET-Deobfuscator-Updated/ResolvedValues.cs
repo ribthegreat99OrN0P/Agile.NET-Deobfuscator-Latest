@@ -10,5 +10,6 @@ namespace Agile.NET_Deobfuscator_Updated
     {
         public int Delegates { get; set; } = 0;
         public int Strings { get;set; } = 0;
+        public int AbsSolved { get; set; } = 0;
     }
 }

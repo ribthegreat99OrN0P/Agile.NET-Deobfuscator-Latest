@@ -37,7 +37,8 @@ namespace Agile.NET_Deobfuscator_Updated
             {
                 resolver.Resolve(reference);
             }
-            foreach (var module in new IModule[] { new Modules.Calls(), new Modules.Strings() })//, new Modules.Flow()
+            
+            foreach (var module in new IModule[] { new Modules.Calls(), new Modules.Strings(),new Modules.Flow() })//, new Modules.Flow()
             {
                 Console.WriteLine($"started {module.ModuleName()}");
                 module.Process(ctx);
@@ -48,6 +49,7 @@ namespace Agile.NET_Deobfuscator_Updated
             var factory = new DotNetDirectoryFactory(MetadataBuilderFlags.PreserveAll);
             imageBuilder.DotNetDirectoryFactory = factory;
             ctx.Assembly.ManifestModule.Write(Path.GetFileNameWithoutExtension(ctx.Path) + "-deob" +(ctx.Assembly.ManifestModule.IsILLibrary ? ".dll" : ".exe"), imageBuilder);
+            Console.WriteLine($" Summary: \n Resolved {ctx.Resolved.Delegates} calls \n Decrypted {ctx.Resolved.Strings} strings \n Solved {ctx.Resolved.AbsSolved} arithmetic calls \n");
             Console.WriteLine("Done.");
             Console.ReadKey();
         }
