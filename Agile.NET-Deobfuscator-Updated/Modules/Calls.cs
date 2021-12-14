@@ -33,7 +33,7 @@ namespace Agile.NET_Deobfuscator_Updated.Modules
                                 var op = method.CilMethodBody.Instructions[i].Operand;
                                 if (op is MethodDefinition mm)
                                 {
-                                    var solved = gettt(mm);
+                                    var solved = ResolveMemberReference(mm);
 
                                     method.CilMethodBody.Instructions[i].Operand = solved;
                                     context.Resolved.Delegates++;
@@ -56,36 +56,33 @@ namespace Agile.NET_Deobfuscator_Updated.Modules
                 }
             }
         }
-        private static MemberReference gettt(MethodDefinition met)
+        private static MemberReference ResolveMemberReference(MethodDefinition met)
         {
             TypeDefinition decType = met.DeclaringType;
             if (decType?.BaseType?.FullName == "System.MulticastDelegate")
             {
-                foreach (var method in decType.Methods)
+                foreach (var method in decType.Methods.Where(x=>x.HasMethodBody))
                 {
-                    if (method.HasMethodBody)
+                    for (int i = 0; i < method.CilMethodBody?.Instructions.Count; i++)
                     {
-                        for (int i = 0; i < method.CilMethodBody.Instructions.Count; i++)
+                        if (method.CilMethodBody.Instructions[i].IsLdcI4())
                         {
-                            if (method.CilMethodBody.Instructions[i].IsLdcI4())
+
+                            int value = method.CilMethodBody.Instructions[i].GetLdcI4Constant();
+                            FieldDefinition fieldDele = getfieldofdelegate(decType);
+
+                            string name = fieldDele.Name;
+                            if (name.EndsWith("%"))
                             {
-
-                                int value = method.CilMethodBody.Instructions[i].GetLdcI4Constant();
-                                FieldDefinition fieldDele = getfieldofdelegate(decType);
-
-                                string name = fieldDele.Name;
-                                if (name.EndsWith("%"))
-                                {
-                                    flag = true;
-                                    name = name.TrimEnd(new char[] { '%' });
-                                }
-                                uint num = BitConverter.ToUInt32(Convert.FromBase64String(name), 0);
-
-                                var token = new MetadataToken((uint)((long)num + 167772161L));
-
-                                var resolved = met.Module.LookupMember(token) as MemberReference;
-                                return resolved;
+                                flag = true;
+                                name = name.TrimEnd(new char[] { '%' });
                             }
+                            uint num = BitConverter.ToUInt32(Convert.FromBase64String(name), 0);
+
+                            var token = new MetadataToken((uint)((long)num + 167772161L));
+
+                            var resolved = met.Module?.LookupMember(token) as MemberReference;
+                            return resolved;
                         }
                     }
                 }
