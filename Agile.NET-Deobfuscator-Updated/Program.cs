@@ -38,7 +38,7 @@ namespace Agile.NET_Deobfuscator_Updated
                 resolver.Resolve(reference);
             }
             
-            foreach (var module in new IModule[] { new Modules.Calls(), new Modules.Strings(),new Modules.Flow() })//, new Modules.Flow()
+            foreach (var module in new IModule[] { new Modules.Calls(), new Modules.Strings()/*,new Modules.Flow() */})//, new Modules.Flow()
             {
                 Console.WriteLine($"started {module.ModuleName()}");
                 module.Process(ctx);
