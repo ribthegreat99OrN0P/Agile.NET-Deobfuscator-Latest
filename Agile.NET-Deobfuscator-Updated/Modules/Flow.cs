@@ -24,7 +24,7 @@ namespace Agile.NET_Deobfuscator_Updated.Modules
             // TO-DO* implement emulation to solve flow
             SolveMath(context);
             //CleanNops(context);
-            CleanFlow(context);
+            //CleanFlow(context);
         }
         private void SolveMath(Context context)
         {

@@ -11,7 +11,8 @@ namespace Agile.NET_Deobfuscator_Updated
     {
         static void Main(string[] file)
         {
-            Context ctx;
+            Context ctx = null;
+
             
             if(file != null)
             {
@@ -30,6 +31,7 @@ namespace Agile.NET_Deobfuscator_Updated
                     return;
                 }
             }
+            
             var runtimeVersion = ctx.Assembly.ManifestModule.OriginalTargetRuntime.Version;
             Console.WriteLine($"resolving assemblies from framework version : {runtimeVersion}");
             var resolver = new DotNetCoreAssemblyResolver(runtimeVersion);
@@ -38,7 +40,7 @@ namespace Agile.NET_Deobfuscator_Updated
                 resolver.Resolve(reference);
             }
             
-            foreach (var module in new IModule[] { new Modules.Calls(), new Modules.Strings()/*,new Modules.Flow() */})//, new Modules.Flow()
+            foreach (var module in new IModule[] { new Modules.Calls(), new Modules.Strings(),new Modules.Flow() })//, new Modules.Flow()
             {
                 Console.WriteLine($"started {module.ModuleName()}");
                 module.Process(ctx);

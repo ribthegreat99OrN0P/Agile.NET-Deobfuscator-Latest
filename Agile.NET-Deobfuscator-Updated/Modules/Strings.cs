@@ -49,7 +49,7 @@ namespace Agile.NET_Deobfuscator_Updated.Modules
         }
         private void FindData(ModuleDefinition def)
         {
-            foreach (var type in def.GetAllTypes().Where(x => x.IsSealed && x.IsNotPublic))
+            foreach (var type in def.GetAllTypes().Where(x => x.IsSealed && x.IsNotPublic && x.NestedTypes.Count > 0))
             {
                 var ns = type.NestedTypes.First();
                 if (ns.IsSealed && ns.IsValueType && type.Fields.First().Signature.FieldType.ToString().Contains(ns.Name))
