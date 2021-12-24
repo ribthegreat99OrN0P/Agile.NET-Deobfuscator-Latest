@@ -6,6 +6,7 @@ Module | Progress | Comments | Status
 String Encryption | Finished |  Maybe move towards emulation | ✔️
 Proxy Delegates | Finished |  N/A | ✔️
 Control-Flow | Not Finished |  started | :x:
+Resource Encryption | Not Finished |  started | :x:
 Virtualization | Not Finished |  Will maybe implement | :x:
 Code-Encryption | Not Finished |  Will implement last | :x:
 
